@@ -47,18 +47,18 @@ The API returns consistent error codes and response formats for different error 
       {
           "status": "fail",
           "data": {
-              "Message": "Fields cannot be empty."
+              "Message": "Username and password cannot be empty."
           }
       }
       ```
-  - **Email Already Exists**
+  - **Username Already Exists**
     - **Status Code**: `400`
     - **Error Message**:
       ```json
       {
           "status": "fail",
           "data": {
-              "Message": "Invalid Email! Try another one."
+              "Message": "Username already taken!"
           }
       }
       ```
@@ -99,7 +99,7 @@ The API returns consistent error codes and response formats for different error 
         "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMDM4NTAsImV4cCI6MTczMDMwNzQ1MCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.cHV3NFEarnoRpLqfmSgkMohh42rQ4tZ42bzRKKcf6yA"
     }
     ```
-  - **token**: A JWT token generated for the user, valid for 1 hour for admin users and 2 hours for regular users.
+  - **token**: A JWT token generated for the user, valid for 1 hour for admin users and regular users.
 
 - **Error Responses**:
   - **Invalid Credentials**
@@ -109,7 +109,7 @@ The API returns consistent error codes and response formats for different error 
       {
           "status": "fail",
           "data": {
-              "Message": "Invalid email or password."
+              "Message": "Invalid username or password."
           }
       }
       ```
@@ -127,16 +127,40 @@ The API returns consistent error codes and response formats for different error 
 
 ---
 
-### Endpoint 3: Add Book
+### Endpoint 3: Add Book (Admin)
 
-- **URL**: `/books/add`
+- **URL**: `/add/books`
 - **Method**: `POST`
-- **Description**: Allows admins to add new books to the library system.
-- **Request Parameters**: (Define as needed)
-  
-## License
-This project is licensed under the MIT License.
+- **Description**: Allows admins to add multiple books to the library. Expects an array of book details, including title, genre, and author name.
 
----
+#### Request Parameters
+| Parameter | Type   | Description                                     | Required | Example                     |
+|-----------|--------|-------------------------------------------------|----------|-----------------------------|
+| token     | string | A valid JWT token for admin authorization       | Yes      | `"your_jwt_token_here"`     |
+| books     | array  | Array of book objects, each containing details  | Yes      | See example below           |
 
-For more information, please refer to the individual endpoint documentation or contact our support team.
+Each book object in the `books` array should contain the following fields:
+
+| Parameter | Type   | Description             | Required | Example                |
+|-----------|--------|-------------------------|----------|------------------------|
+| title     | string | The title of the book   | Yes      | `"Sample Book Title"`  |
+| genre     | string | The genre of the book   | Yes      | `"Science Fiction"`    |
+| author    | string | The author's name       | Yes      | `"Author Name"`        |
+
+#### Example Request Body
+```json
+{
+    "token": "your_jwt_token_here",
+    "books": [
+        {
+            "title": "Sample Book Title 1",
+            "genre": "Science Fiction",
+            "author": "Author Name 1"
+        },
+        {
+            "title": "Sample Book Title 2",
+            "genre": "Fantasy",
+            "author": "Author Name 2"
+        }
+    ]
+}
