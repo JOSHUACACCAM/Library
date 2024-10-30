@@ -83,10 +83,10 @@ The API returns consistent error codes and response formats for different error 
 - **Description**: Authenticates a user by verifying their email and password. If successful, generates a JSON Web Token (JWT).
 
 #### Request Parameters
-| Parameter | Type   | Description               | Required | Example                        |
-|-----------|--------|---------------------------|----------|--------------------------------|
-| email     | string | The user's email address  | Yes      | `savannahjaneducusin@gmail.com`|
-| password  | string | The user's account password | Yes    | `p@$$w0rd!`                    |
+| Parameter | Type   | Description               | Required | Example    |
+|-----------|--------|---------------------------|----------|------------|
+| username  | string | The user's username       | Yes      | `joshu`    |
+| password  | string | The user's account password | Yes    | `opengate` |
 
 #### Responses
 
