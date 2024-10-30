@@ -3,7 +3,7 @@
 ## Introduction
 
 ### Overview
-The Library API is designed for library administrators to manage books and monitor user accounts. It provides endpoints for registering and authenticating users, as well as adding and modifying book information.
+The Library API is designed for users viewing and library administrators to manage books and authors. It provides endpoints for registering and authenticating users, as well as viewing, adding and modifying book information.
 
 ### Authentication
 This API uses **JSON Web Tokens (JWT)** for secure authentication. A valid JWT token must be included in the header of requests that require authentication. Tokens are valid for:
