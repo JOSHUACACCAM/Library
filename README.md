@@ -1,4 +1,4 @@
-# Library API Documentation
+ # Library API Documentation
 
 ## Introduction
 
@@ -24,9 +24,8 @@ The API returns consistent error codes and response formats for different error 
 #### Request Parameters
 | Parameter | Type   | Description                   | Required | Example                        |
 |-----------|--------|-------------------------------|----------|--------------------------------|
-| email     | string | The email address of the user | Yes      | `savannahjaneducusin@gmail.com`|
-| username  | string | The desired username          | Yes      | `Saviee`                       |
-| password  | string | The password (hashed securely)| Yes      | `p@$$w0rd!`                    |
+| username  | string | The desired username          | Yes      | `Joshu`                       |
+| password  | string | The password (hashed securely)| Yes      | `opengate`                    |
 
 #### Responses
 
