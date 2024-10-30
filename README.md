@@ -96,7 +96,7 @@ The API returns consistent error codes and response formats for different error 
     ```json
     {
         "status": "success",
-        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMDM4NTAsImV4cCI6MTczMDMwNzQ1MCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.cHV3NFEarnoRpLqfmSgkMohh42rQ4tZ42bzRKKcf6yA"
     }
     ```
   - **token**: A JWT token generated for the user, valid for 1 hour for admin users and 2 hours for regular users.
