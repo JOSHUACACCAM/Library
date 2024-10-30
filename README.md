@@ -164,3 +164,54 @@ Each book object in the `books` array should contain the following fields:
         }
     ]
 }
+
+#### Responses
+
+- **Success Response**:
+  - **Status Code**: `200`
+  - **Response Body**:
+    ```json
+    {
+        "status": "success",
+        "new_token": "new_jwt_token_here"
+    }
+    ```
+  - **new_token**: A refreshed JWT token returned if the previous token is close to expiring.
+
+- **Error Responses**:
+
+  - **Access Denied**
+    - **Status Code**: `403`
+    - **Error Message**:
+      ```json
+      {
+          "status": "fail",
+          "data": {
+              "Message": "Access Denied. Only admins can add books."
+          }
+      }
+      ```
+
+  - **Invalid or Expired Token**
+    - **Status Code**: `401`
+    - **Error Message**:
+      ```json
+      {
+          "status": "fail",
+          "data": {
+              "Message": "Token is invalid or outdated."
+          }
+      }
+      ```
+
+  - **Database Error** (e.g., issues with inserting records)
+    - **Status Code**: `500`
+    - **Error Message**:
+      ```json
+      {
+          "status": "fail",
+          "data": {
+              "Message": "Database error message here."
+          }
+      }
+      ```
