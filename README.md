@@ -15,7 +15,7 @@ The API returns consistent error codes and response formats for different error 
 
 ---
 
-## Endpoints
+ # Endpoints
 
 ### Endpoint 1: Register User
 
