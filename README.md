@@ -85,10 +85,10 @@ The API returns consistent error codes and response formats for different error 
 - **Description**: Authenticates a user by verifying their email and password. If successful, generates a JSON Web Token (JWT).
 
 #### Request Parameters
-| Parameter | Type   | Description               | Required | Example    |
-|-----------|--------|---------------------------|----------|------------|
-| username  | string | The user's username       | Yes      | `joshu`    |
-| password  | string | The user's account password | Yes    | `opengate` |
+| Parameter | Type   | Description                 | Required | Example    |
+|-----------|--------|-----------------------------|----------|------------|
+| username  | string | The user's username         | Yes      | `joshu`    |
+| password  | string | The user's account password | Yes      | `opengate` |
 
 #### Responses
 
@@ -139,10 +139,11 @@ Displays a list of books filtered by genre if the genre exists in the database.
 
 ### Request Parameters
 
-| Parameter   | Type   | Required | Description                               |
-|-------------|--------|----------|-------------------------------------------|
-| `bookgenre` | string | Yes      | The genre of the books to display.        |
-| `token`     | string | Yes      | A valid JWT token for authentication.     |
+#### Request Parameters
+| Parameter    | Type   | Description                          | Required | Example                        |
+|--------------|--------|--------------------------------------|----------|--------------------------------|
+| `bookgenre`  | string | The genre of the books to display.   | Yes      | `Fiction`                      |
+| `token`      | string | A valid JWT token for authentication.| Yes      | `"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMDM4NTAsImV4cCI6MTczMDMwNzQ1MCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.cHV3NFEarnoRpLqfmSgkMohh42rQ4tZ42bzRKKcf6yA"`                    |
 
 ### Responses
 
@@ -154,7 +155,7 @@ Displays a list of books filtered by genre if the genre exists in the database.
 ```json
 {
     "status": "success",
-    "new_token": "new_jwt_token_here",
+    "new_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMDM4NTAsImV4cCI6MTczMDMwNzQ1MCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.cHV3NFEarnoRpLqfmSgkMohh42rQ4tZ42bzRKKcf6yA",
     "data": [
         {
             "bookid": "1",
@@ -235,14 +236,14 @@ Content-Type: application/json
 |--------------|--------|----------|---------------------------------------------------|-----------------------------|
 | authorid     | string | Yes      | The ID of the author to update.                   | `"1"`                       |
 | authorname   | string | No       | The new name of the author (if applicable).       | `"Updated Author Name"`     |
-| token        | string | Yes      | A valid JWT token for authentication.             | `"your_jwt_token_here"`     |
+| token        | string | Yes      | A valid JWT token for authentication.             | `"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMDM4NTAsImV4cCI6MTczMDMwNzQ1MCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.cHV3NFEarnoRpLqfmSgkMohh42rQ4tZ42bzRKKcf6yA"`     |
 
 ### Example Request
 ```json
 {
     "authorid": "1",
     "authorname": "Updated Author Name",
-    "token": "your_jwt_token_here"
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMDM4NTAsImV4cCI6MTczMDMwNzQ1MCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.cHV3NFEarnoRpLqfmSgkMohh42rQ4tZ42bzRKKcf6yA"
 }
 ```
 
