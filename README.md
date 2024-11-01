@@ -21,13 +21,21 @@ The API returns consistent error codes and response formats for different error 
 
 - **URL**: `/users/register`
 - **Method**: `POST`
-- **Description**: Registers a new user in the system, saving their email, username, and password in the database.
+- **Description**: Registers a new user in the system, saving their username and password in the database.
 
 #### Request Parameters
-| Parameter | Type   | Description                   | Required | Example                        |
-|-----------|--------|-------------------------------|----------|--------------------------------|
-| username  | string | The desired username          | Yes      | `Joshu`                       |
-| password  | string | The password (hashed securely)| Yes      | `opengate`                    |
+| Parameter   | Type   | Description                   | Required | Example                        |
+|-------------|--------|-------------------------------|----------|--------------------------------|
+|`username`   | string | The desired username          | Yes      | `Joshu`                        |
+| `password`  | string | The password (hashed securely)| Yes      | `opengate`                     |
+
+### Example Request
+```json
+{
+    "username": "Joshu",
+    "password": "opengate"
+}
+```
 
 #### Responses
 
@@ -82,13 +90,21 @@ The API returns consistent error codes and response formats for different error 
 
 - **URL**: `/users/login`
 - **Method**: `POST`
-- **Description**: Authenticates a user by verifying their email and password. If successful, generates a JSON Web Token (JWT).
+- **Description**: Authenticates a user by verifying their username and password. If successful, generates a JSON Web Token (JWT).
 
 #### Request Parameters
 | Parameter | Type   | Description                 | Required | Example    |
 |-----------|--------|-----------------------------|----------|------------|
 | username  | string | The user's username         | Yes      | `joshu`    |
 | password  | string | The user's account password | Yes      | `opengate` |
+
+### Example Request
+```json
+{
+    "username": "joshu",
+    "password": "opengate"
+}
+```
 
 #### Responses
 
@@ -129,21 +145,24 @@ The API returns consistent error codes and response formats for different error 
 
 ---
 
-# Display Books by Genre API
-
-### Endpoint
-**GET** `/display/genrebooks`
-
-### Description
-Displays a list of books filtered by genre if the genre exists in the database.
-
-### Request Parameters
+### Endpoint 3: Display Books by Genre
+- **URL**: `/display/genrebooks`
+- **Method**: `GET`
+- **Description**: Displays a list of books filtered by genre if the genre exists in the database.
 
 #### Request Parameters
 | Parameter    | Type   | Description                          | Required | Example                        |
 |--------------|--------|--------------------------------------|----------|--------------------------------|
 | `bookgenre`  | string | The genre of the books to display.   | Yes      | `Fiction`                      |
 | `token`      | string | A valid JWT token for authentication.| Yes      | `"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMDM4NTAsImV4cCI6MTczMDMwNzQ1MCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.cHV3NFEarnoRpLqfmSgkMohh42rQ4tZ42bzRKKcf6yA"`                    |
+
+### Example Request
+```json
+{
+    "bookgenre": "Fiction",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMDM4NTAsImV4cCI6MTczMDMwNzQ1MCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.cHV3NFEarnoRpLqfmSgkMohh42rQ4tZ42bzRKKcf6yA"
+}
+```
 
 ### Responses
 
@@ -186,7 +205,7 @@ Displays a list of books filtered by genre if the genre exists in the database.
     {
         "status": "fail",
         "data": {
-            "Message": "Token is invalid or outdated."
+            "Message": "Invalid or Outdated Token."
         }
     }
     ```
@@ -219,30 +238,24 @@ Displays a list of books filtered by genre if the genre exists in the database.
 
 ---
 
-## Update Author (Admin) API
+## Update Author API (Admin)
 
-### Endpoint
-**POST** `/update/authors`
+- **URL**: `/update/authors`
+- **Method**: `POST`
+- **Description**: Updates the details of an author in the database. This action is restricted to users with admin access.
 
-### Description
-Updates the details of an author in the database. This action is restricted to users with admin access.
-
-### Request Body
-Content-Type: application/json
-
-#### Parameters
-
-| Parameter    | Type   | Required | Description                                       | Example                     |
-|--------------|--------|----------|---------------------------------------------------|-----------------------------|
-| authorid     | string | Yes      | The ID of the author to update.                   | `"1"`                       |
-| authorname   | string | No       | The new name of the author (if applicable).       | `"Updated Author Name"`     |
+#### Request Parameters
+| Parameter    | Type   | Required | Description                                       | Example                              |
+|--------------|--------|----------|---------------------------------------------------|--------------------------------------|
+| authorid     | string | Yes      | The ID of the author to update.                   | `"1"`                                |
+| authorname   | string | No       | The new name of the author (if applicable).       | `"Joshua (Updated Author Name)"`     |
 | token        | string | Yes      | A valid JWT token for authentication.             | `"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMDM4NTAsImV4cCI6MTczMDMwNzQ1MCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.cHV3NFEarnoRpLqfmSgkMohh42rQ4tZ42bzRKKcf6yA"`     |
 
 ### Example Request
 ```json
 {
     "authorid": "1",
-    "authorname": "Updated Author Name",
+    "authorname": "Joshua (Updated Autohr Name)",
     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMDM4NTAsImV4cCI6MTczMDMwNzQ1MCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.cHV3NFEarnoRpLqfmSgkMohh42rQ4tZ42bzRKKcf6yA"
 }
 ```
@@ -321,7 +334,7 @@ Each book object in the `books` array should contain the following fields:
       {
           "status": "fail",
           "data": {
-              "Message": "Token is invalid or outdated."
+              "Message": "Invalid or Outdated Token."
           }
       }
       ```
@@ -336,6 +349,8 @@ Each book object in the `books` array should contain the following fields:
           }
       }
       ```
+
+---
 
 ### Endpoint 4: Update Book (Admin)
 
@@ -395,7 +410,7 @@ Each book object in the `books` array should contain the following fields:
       {
           "status": "fail",
           "data": {
-              "Message": "Token is invalid or outdated."
+              "Message": "Invalid or Outdated Token."
           }
       }
       ```
@@ -433,6 +448,10 @@ Each book object in the `books` array should contain the following fields:
       }
       ```
 
+---
+
+---
+
 ### Endpoint 4: Delete Book (Admin)
 
 - **URL**: `/delete/books`
@@ -442,14 +461,14 @@ Each book object in the `books` array should contain the following fields:
 #### Request Parameters
 | Parameter | Type   | Description                               | Required | Example                   |
 |-----------|--------|-------------------------------------------|----------|---------------------------|
-| token     | string | A valid JWT token for admin authorization | Yes      | `"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMDM4NTAsImV4cCI6MTczMDMwNzQ1MCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.cHV3NFEarnoRpLqfmSgkMohh42rQ4tZ42bzRKKcf6yA"`   |
-| bookCode  | string | The unique code of the book to be deleted | Yes      | `"915AG"`      |
+| `token`     | string | A valid JWT token for admin authorization | Yes      | `"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMDM4NTAsImV4cCI6MTczMDMwNzQ1MCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.cHV3NFEarnoRpLqfmSgkMohh42rQ4tZ42bzRKKcf6yA"`   |
+| `bookCode`  | string | The unique code of the book to be deleted | Yes      | `"915AG"`      |
 
 #### Example Request Body
 ```json
 {
-    "token": "your_jwt_token_here",
-    "bookCode": "sample_book_code"
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMDM4NTAsImV4cCI6MTczMDMwNzQ1MCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.cHV3NFEarnoRpLqfmSgkMohh42rQ4tZ42bzRKKcf6yA",
+    "bookCode": "915AG"
 }
 ```
 
@@ -485,7 +504,7 @@ Each book object in the `books` array should contain the following fields:
       {
           "status": "fail",
           "data": {
-              "Message": "Token is invalid or outdated."
+              "Message": "Invalid or Outdated Token."
           }
       }
       ```
@@ -512,13 +531,13 @@ Each book object in the `books` array should contain the following fields:
       }
       ```
 
+---
+
 ### Display All Books API
 
-#### Endpoint
-`GET /displayall/books`
-
-#### Description
-This endpoint retrieves all books along with their associated authors from the library database. It requires a valid JWT token for access.
+- **URL**: `/displayall/books`
+- **Method**: `GET`
+- **Description**: This endpoint retrieves all books along with their associated authors from the library database. It requires a valid JWT token for access.
 
 #### Request Parameters
 | Parameter | Type   | Description                               | Required | Example                   |
@@ -579,7 +598,7 @@ This endpoint retrieves all books along with their associated authors from the l
         {
             "status": "fail",
             "data": {
-                "Message": "Token is invalid or outdated."
+                "Message": "Invalid or Outdated Token."
             }
         }
         ```
@@ -608,25 +627,24 @@ This endpoint retrieves all books along with their associated authors from the l
         }
         ```
 
+---
+
 ### Display Books by Author API
-
-#### Endpoint
-`GET /display/authorsbooks`
-
-#### Description
-This endpoint retrieves all books written by a specified author. It requires a valid JWT token for access.
+- **URL**: `/display/authorsbooks`
+- **Method**: `GET`
+- **Description**: This endpoint retrieves all books written by a specified author. It requires a valid JWT token for access.
 
 #### Request Parameters
 | Parameter   | Type   | Description                               | Required | Example                   |
 |-------------|--------|-------------------------------------------|----------|---------------------------|
 | token       | string | A valid JWT token for user authorization  | Yes      | `"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMTI2MDQsImV4cCI6MTczMDMxNjIwNCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.qvk-3h9KOakIjNvArKpYh1feoGaoTbICA-oyhOOzo4U"`   |
-| authorname  | string | The name of the author whose books to retrieve | Yes  | `"Author Name"`           |
+| authorname  | string | The name of the author whose books to retrieve | Yes  | `"Author1"`           |
 
 #### Example Request Body
 ```json
 {
     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMTI2MDQsImV4cCI6MTczMDMxNjIwNCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.qvk-3h9KOakIjNvArKpYh1feoGaoTbICA-oyhOOzo4U",
-    "authorname": "Author Name"
+    "authorname": "Author1"
 }
 ```
 
@@ -647,7 +665,7 @@ This endpoint retrieves all books written by a specified author. It requires a v
                 "genre": "Fiction",
                 "bookCode": "BK001",
                 "authorid": "1",
-                "authorname": "Author Name"
+                "authorname": "Author1"
             },
             {
                 "bookid": "2",
@@ -655,7 +673,7 @@ This endpoint retrieves all books written by a specified author. It requires a v
                 "genre": "Non-Fiction",
                 "bookCode": "BK002",
                 "authorid": "1",
-                "authorname": "Author Name"
+                "authorname": "Author1"
             }
         ]
     }
@@ -680,7 +698,7 @@ This endpoint retrieves all books written by a specified author. It requires a v
         {
             "status": "fail",
             "data": {
-                "Message": "Token is invalid or outdated."
+                "Message": "Invalid or Outdated Token."
             }
         }
         ```
@@ -709,7 +727,13 @@ This endpoint retrieves all books written by a specified author. It requires a v
         }
         ```
 
-  ### Display Books by Title API
+---
+
+### Display Books by Title API
+
+- **URL**: `/display/titlebooks`
+- **Method**: `GET`
+- **Description**: Displays a list of books filtered by title if the genre exists in the database. It requires a valid JWT token for access.
 
 #### Endpoint
 `GET /display/titlebooks`
@@ -741,7 +765,7 @@ This endpoint retrieves all books written by a specified author. It requires a v
         "data": [
             {
                 "bookid": "1",
-                "title": "Sample Book Title",
+                "title": "Isang Kaibigan",
                 "genre": "Fiction",
                 "bookCode": "BK001",
                 "authorid": "1",
@@ -770,7 +794,7 @@ This endpoint retrieves all books written by a specified author. It requires a v
         {
             "status": "fail",
             "data": {
-                "Message": "Token is invalid or outdated."
+                "Message": "Invalid or Outdated Token."
             }
         }
         ```
@@ -798,20 +822,20 @@ This endpoint retrieves all books written by a specified author. It requires a v
             }
         }
         ```
+
+---
+        
 ## Display Books by Genre API
 
-### Endpoint
-**GET** `/display/genrebooks`
-
-### Description
-Displays a list of books filtered by genre if the genre exists in the database.
+- **URL**: `/display/genrebooks`
+- **Method**: `GET`
+- **Description**: Displays a list of books filtered by genre if the genre exists in the database.
 
 ### Request Parameters
-
-| Parameter   | Type   | Required | Description                               |
-|-------------|--------|----------|-------------------------------------------|
-| `bookgenre` | string | Yes      | `"Fiction"`        |
-| `token`     | string | Yes      | `"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMTI2MDQsImV4cCI6MTczMDMxNjIwNCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc19sZXZlbCI6ImFkbWluIn19.qvk-3h9KOakIjNvArKpYh1feoGaoTbICA-oyhOOzo4U"`     |
+| Parameter   | Type   | Description                                | Required | Example                  |
+|-------------|--------|--------------------------------------------|----------|--------------------------|
+| `bookgenre` | string | Genre of the  book to search for           |   Yes    | `"Fiction"`        |
+| `token`     | string | A valid JWT token for user authorization   |     Yes  | `"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbGlicmFyeS5vcmciLCJhdWQiOiJodHRwOi8vbGlicmFyeS5jb20iLCJpYXQiOjE3MzAzMTI2MDQsImV4cCI6MTczMDMxNjIwNCwiZGF0YSI6eyJ1c2VyaWQiOjEwOSwibmFtZSI6InNhcmxlbiIsImFjY2Vzc1sZXZlbCI6ImFkbWluIn19.qvk-3h9KOakIjNvArKpYh1feoGaoTbICA-oyhOOzo4U"`     |
 
 ### Success Response
 - **Status Code**: `200 OK`
@@ -861,7 +885,7 @@ Displays a list of books filtered by genre if the genre exists in the database.
         {
             "status": "fail",
             "data": {
-                "Message": "Token is invalid or outdated."
+                "Message": "Invalid or Outdated Token."
             }
         }
         ```
